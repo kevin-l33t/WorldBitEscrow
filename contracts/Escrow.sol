@@ -24,7 +24,7 @@ contract WBTEscrow is Ownable {
 
   mapping (uint => Transaction) public transactions;
 
-  mapping (uint => mapping(address => uint)) claims;
+  mapping (uint => mapping(address => uint)) public claims;
 
   uint public transactionCount;
 
@@ -73,7 +73,7 @@ contract WBTEscrow is Ownable {
   event HandleClaim(uint indexed transactionId, address indexed beneficiary, uint indexed value);
 
   /**
-   * Event for Escrow logging
+   * Event for Complete logging
    * @param transactionId Transaction ID
    */
   event Complete(uint transactionId);
@@ -150,7 +150,7 @@ contract WBTEscrow is Ownable {
    */
   function deliver(uint _transactionId) onlyMerchant(_transactionId) notCompleted(_transactionId) external returns (bool success) {
     require(transactions[_transactionId].status == TxStatus.escrow);
-    transactions[_transactionId].status = TxStatus.escrow;
+    transactions[_transactionId].status = TxStatus.deliver;
 
     emit Deliver(_transactionId);
 
