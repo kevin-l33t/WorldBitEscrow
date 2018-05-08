@@ -238,6 +238,15 @@ contract WBTEscrow is Ownable {
       _transactionIds[i - _from] = transactionIdsTemp[i];
   }
 
+  /**
+   * @dev Returns Transaction status
+   * @param _transactionId Transaction ID
+  */
+  function getTransactionStatusById(uint _transactionId) external view returns (TxStatus status)
+  {
+    return transactions[_transactionId].status;
+  }
+
   // -----------------------------------------
   // modifiers
   // -----------------------------------------
